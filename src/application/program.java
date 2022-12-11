@@ -1,12 +1,14 @@
 package application;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
 
 import model.entities.Contract;
+import model.entities.Installment;
+import model.service.ContractService;
+import model.service.PaypalService;
 
 public class program {
 
@@ -29,7 +31,15 @@ public class program {
 		
 		System.out.print("Entre com o numero de parcelas: ");
 		int n = sc.nextInt();
-	
+		
+		ContractService contractService = new ContractService (new PaypalService());
+		contractService.processcontract(obj, n);
+		
+		System.out.println("Parcelas: ");
+		for (Installment installment : obj.getInstalments()){
+			System.out.println(installment);
+		}
+		
 		sc.close();
 	}
 
